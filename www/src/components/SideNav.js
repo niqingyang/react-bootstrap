@@ -113,6 +113,7 @@ const layout = ['grid', 'stack'];
 const forms = [
   'overview',
   'form-control',
+  'form-input',
   'form-text',
   'select',
   'checks-radios',

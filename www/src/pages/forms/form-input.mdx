@@ -1,0 +1,78 @@
+import { graphql } from 'gatsby';
+
+import Callout from '../../components/Callout';
+import ComponentApi from '../../components/ComponentApi';
+import ReactPlayground from '../../components/ReactPlayground';
+
+import FormInput from '../../examples/Form/FormInput';
+import FormInputSizes from '../../examples/Form/FormInputSizes';
+import FormInputDisabled from '../../examples/Form/FormInputDisabled';
+import FormInputReadOnly from '../../examples/Form/FormInputReadOnly';
+import FormInputPlaintext from '../../examples/Form/FormInputPlaintext';
+import FormInputColorPicker from '../../examples/Form/FormInputColorPicker';
+
+# Select
+
+<p className="lead">Create block-level or inline-level form text.</p>
+
+## Form Input
+
+Block-level help text in forms can be created using `<Form.Text>`. Inline help
+text can be flexibly implemented using any inline HTML element and utility classes
+like `.text-muted`.
+
+<Callout>
+  <h5>Associating help text with form controls</h5>
+  Help text should be explicitly associated with the form control it relates to using
+  the <code>aria-describedby</code> attribute. This will ensure that assistive technologies—such
+  as screen readers—will announce this help text when the user focuses or enters
+  the control.
+</Callout>
+
+Form Input below inputs can be styled with `<Form.Input>`. This component includes
+`display: block` and adds some top margin for easy spacing from the inputs above.
+
+<ReactPlayground codeText={FormInput} />
+
+## Sizing
+
+Use `size` on `<FormInput>` to change the size of the input.
+
+<ReactPlayground codeText={FormInputSizes} />
+
+## Disabled
+
+Add the `disabled` prop on an input to give it a grayed out appearance and remove pointer events.
+
+<ReactPlayground codeText={FormInputDisabled} />
+
+## ReadOnly
+
+Add the `readOnly` prop on an input to prevent modification of the input's value. Read-only inputs appear lighter (just like disabled inputs), but retain the standard cursor.
+
+<ReactPlayground codeText={FormInputReadOnly} />
+
+## Readonly plain text
+
+If you want to have readonly elements in your form styled as `plain text`, use the plaintext prop on FormControls to remove the default form field styling and preserve the correct margin and padding.
+
+<ReactPlayground codeText={FormInputPlaintext} />
+
+## Color
+
+<ReactPlayground codeText={FormInputColorPicker} />
+
+## API
+
+<ComponentApi metadata={props.data.FormInput} exportedBy={props.data.Form} />
+
+export const query = graphql`
+  query FormInputQuery {
+    Form: componentMetadata(displayName: { eq: "Form" }) {
+      ...ComponentApi_metadata
+    }
+    FormInput: componentMetadata(displayName: { eq: "FormInput" }) {
+      ...ComponentApi_metadata
+    }
+  }
+`;

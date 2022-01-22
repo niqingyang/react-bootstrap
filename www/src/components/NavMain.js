@@ -99,16 +99,16 @@ const propTypes = {
 function NavMain({ activePage }) {
   return (
     <>
-      <Banner>
-        <span className="text-light">Black Lives Matter.</span>
-        <a
-          target="_blank"
-          rel="noreferrer"
-          href="https://support.eji.org/give/153413/#!/donation/checkout"
-        >
-          Support the Equal Justice Initiative.
-        </a>
-      </Banner>
+      {/*<Banner>*/}
+      {/*  <span className="text-light">Black Lives Matter.</span>*/}
+      {/*  <a*/}
+      {/*    target="_blank"*/}
+      {/*    rel="noreferrer"*/}
+      {/*    href="https://support.eji.org/give/153413/#!/donation/checkout"*/}
+      {/*  >*/}
+      {/*    Support the Equal Justice Initiative.*/}
+      {/*  </a>*/}
+      {/*</Banner>*/}
       <StyledNavbar expand collapseOnSelect>
         <Container fluid>
           <SkipToContentLink href="#rb-docs-content" tabIndex="0">

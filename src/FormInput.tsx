@@ -1,28 +1,28 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+
 import * as React from 'react';
-import { useContext } from 'react';
-import warning from 'warning';
-import Feedback from './Feedback';
-import FormContext from './FormContext';
+import { useMemo } from 'react';
+
+import createWithBsPrefix from './createWithBsPrefix';
 import { useBootstrapPrefix } from './ThemeProvider';
 import { BsPrefixProps, BsPrefixRefForwardingComponent } from './helpers';
+import FormControl, { FormControlProps } from './FormControl';
+import InputWrapperContext from './InputWrapperContext';
 
-type FormControlElement = HTMLInputElement | HTMLTextAreaElement;
 
-export interface FormControlProps
-  extends BsPrefixProps,
-    React.HTMLAttributes<FormControlElement> {
-  htmlSize?: number;
-  size?: 'sm' | 'lg';
-  plaintext?: boolean;
-  readOnly?: boolean;
-  disabled?: boolean;
-  value?: string | string[] | number;
-  onChange?: React.ChangeEventHandler<FormControlElement>;
-  type?: string;
-  isValid?: boolean;
-  isInvalid?: boolean;
+const FormInputPrefix = createWithBsPrefix('input-wrapper-prefix', {
+  Component: 'span',
+});
+
+const FormInputSuffix = createWithBsPrefix('input-wrapper-suffix', {
+  Component: 'span',
+});
+
+export interface FormInputProps
+  extends FormControlProps {
+  prefix?: any,
+  suffix?: any
 }
 
 const propTypes = {
@@ -100,34 +100,40 @@ const propTypes = {
 
   /** Add "invalid" validation styles to the control and accompanying label */
   isInvalid: PropTypes.bool,
+
+  /**
+   * Add "prefix" before `<Form.Control>`
+   */
+  prefix: PropTypes.any,
+
+  /**
+   * Add "suffix" after `<Form.Control>`
+   */
+  suffix: PropTypes.any,
 };
 
-const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
-  React.forwardRef<FormControlElement, FormControlProps>(
+/**
+ *
+ */
+const FormInput: BsPrefixRefForwardingComponent<'span', FormInputProps> =
+  React.forwardRef<HTMLInputElement, FormInputProps>(
     (
       {
         bsPrefix,
-        type,
         size,
-        htmlSize,
-        id,
         className,
-        isValid = false,
-        isInvalid = false,
-        plaintext,
-        readOnly,
         // Need to define the default "as" during prop destructuring to be compatible with styled-components github.com/react-bootstrap/react-bootstrap/issues/3595
-        as: Component = 'input',
+        as: Component = 'span',
+        prefix,
+        suffix,
         ...props
       },
       ref,
     ) => {
-      const { controlId } = useContext(FormContext);
-
-      bsPrefix = useBootstrapPrefix(bsPrefix, 'form-control');
+      bsPrefix = useBootstrapPrefix(bsPrefix, 'input-wrapper');
 
       let classes;
-      if (plaintext) {
+      if (props.plaintext) {
         classes = {
           [bsPrefix]: true,
           [`${bsPrefix}-plaintext`]: true,
@@ -139,32 +145,46 @@ const FormControl: BsPrefixRefForwardingComponent<'input', FormControlProps> =
         };
       }
 
-      warning(
-        controlId == null || !id,
-        '`controlId` is ignored on `<FormControl>` when `id` is specified.',
-      );
+      // Intentionally an empty object. Used in detecting if a dropdown
+      // exists under an input group.
+      const contextValue = useMemo(() => ({}), []);
 
       return (
-        <Component
-          {...props}
-          type={type}
-          size={htmlSize}
-          ref={ref}
-          readOnly={readOnly}
-          id={id || controlId}
-          className={classNames(
-            className,
-            classes,
-            isValid && `is-valid`,
-            isInvalid && `is-invalid`,
-            type === 'color' && `${bsPrefix}-color`,
-          )}
-        />
+        <InputWrapperContext.Provider value={contextValue}>
+          <Component
+            className={classNames(
+              className,
+              classes,
+              props.disabled && `${bsPrefix}-disabled`,
+              props.readOnly && `${bsPrefix}-readonly`,
+              props.isValid && `is-valid`,
+              props.isInvalid && `is-invalid`,
+              props.type === 'color' && `${bsPrefix}-color`,
+            )}
+          >
+            {prefix && <span className={classNames(
+              `${bsPrefix}-prefix`,
+            )}>{prefix}</span>}
+            <FormControl
+              ref={ref}
+              as='input'
+              {...props}
+              className={classNames(
+                className,
+              )} />
+            {suffix && <span className={classNames(
+              `${bsPrefix}-suffix`,
+            )}>{suffix}</span>}
+          </Component>
+        </InputWrapperContext.Provider>
       );
     },
   );
 
-FormControl.displayName = 'FormControl';
-FormControl.propTypes = propTypes;
+FormInput.propTypes = propTypes;
+FormInput.displayName = 'FormInput';
 
-export default Object.assign(FormControl, { Feedback });
+export default Object.assign(FormInput, {
+  Prefix: FormInputPrefix,
+  Suffix: FormInputSuffix,
+});

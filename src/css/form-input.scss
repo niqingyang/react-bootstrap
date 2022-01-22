@@ -1,0 +1,258 @@
+.input-wrapper {
+
+  width: 100%;
+  padding: $input-padding-y $input-padding-x;
+  color: $input-color;
+  background-color: $input-bg;
+  background-clip: padding-box;
+  border: $input-border-width solid $input-border-color;
+  appearance: none; // Fix appearance for date inputs in Safari
+  display: flex;
+
+  // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
+  @include border-radius($input-border-radius, 0);
+
+  @include box-shadow($input-box-shadow);
+  @include transition($input-transition);
+
+  &:focus-within {
+    color: $input-focus-color;
+    background-color: $input-focus-bg;
+    border-color: $input-focus-border-color;
+    outline: 0;
+    @if $enable-shadows {
+      @include box-shadow($input-box-shadow, $input-focus-box-shadow);
+    } @else {
+      // Avoid using mixin so we can pass custom focus shadow properly
+      box-shadow: $input-focus-box-shadow;
+    }
+  }
+
+  & > .form-control {
+    border: none;
+    padding: 0;
+
+    &:focus {
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  .input-wrapper-prefix, .input-wrapper-suffix {
+    //display: flex;
+    flex: none;
+    align-items: center;
+    opacity: 0.6;
+  }
+
+  .input-wrapper-prefix {
+    margin-right: 0.75rem;
+  }
+
+  .input-wrapper-suffix {
+    margin-left: 0.75rem;
+  }
+
+  &-color {
+    width: fit-content;
+
+    .form-control-color {
+      width: $form-color-width !important;
+    }
+  }
+
+  // Disabled and read-only inputs
+  //
+  // HTML5 says that controls under a fieldset > legend:first-child won't be
+  // disabled if the fieldset is disabled. Due to implementation difficulty, we
+  // don't honor that edge case; we style them as disabled anyway.
+  &-disabled,
+  &-readonly {
+    background-color: $input-disabled-bg !important;
+    border-color: $input-disabled-border-color;
+    // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
+    opacity: 1;
+
+    .form-control {
+      background-color: transparent !important;
+    }
+  }
+
+  &-plaintext {
+
+    border: $input-border-width solid transparent;
+    box-shadow: none;
+    background-color: transparent !important;
+
+    .form-control-plaintext {
+      padding: 0;
+      outline: none;
+    }
+
+    &:focus-within {
+      //border: none;
+      box-shadow: none;
+      border: $input-border-width solid $input-border-color;
+    }
+  }
+}
+
+//
+// Base styles
+//
+
+.input-group .input-wrapper {
+  position: relative; // For focus state's z-index
+  flex: 1 1 auto;
+  width: 1%;
+  min-width: 0; // https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
+}
+
+.input-wrapper {
+  position: relative;
+  //display: flex;
+  // flex-wrap: wrap; // For form validation feedback
+  align-items: stretch;
+  //width: 100%;
+
+  > .form-control,
+  > .form-select {
+    position: relative; // For focus state's z-index
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0; // https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
+  }
+
+  // Bring the "active" form control to the top of surrounding elements
+  > .form-control:focus,
+  > .form-select:focus {
+    z-index: 3;
+  }
+
+  // Ensure buttons are always above inputs for more visually pleasing borders.
+  // This isn't needed for `.input-group-text` since it shares the same border-color
+  // as our inputs.
+  .btn {
+    position: relative;
+    z-index: 2;
+
+    &:focus {
+      z-index: 3;
+    }
+  }
+}
+
+
+// Sizing
+//
+// Remix the default form control sizing classes into new ones for easier
+// manipulation.
+
+//.input-wrapper-lg > .form-control,
+.input-wrapper-lg,
+.input-group-lg > .input-wrapper {
+  padding: $input-padding-y-lg $input-padding-x-lg;
+  @include font-size($input-font-size-lg);
+  @include border-radius($input-border-radius-lg);
+}
+
+//.input-wrapper-sm > .form-control,
+.input-wrapper-sm,
+.input-group-sm > .input-wrapper {
+  padding: $input-padding-y-sm $input-padding-x-sm;
+  @include font-size($input-font-size-sm);
+  @include border-radius($input-border-radius-sm);
+}
+
+.input-wrapper-lg > .form-select,
+.input-wrapper-sm > .form-select {
+  padding-right: $form-select-padding-x + $form-select-indicator-padding;
+}
+
+
+// Rounded corners
+//
+// These rulesets must come after the sizing ones to properly override sm and lg
+// border-radius values when extending. They're more specific than we'd like
+// with the `.input-group >` part, but without it, we cannot override the sizing.
+
+// stylelint-disable-next-line no-duplicate-selectors
+.input-wrapper {
+  &:not(.has-validation) {
+    > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu),
+    > .dropdown-toggle:nth-last-child(n + 3) {
+      @include border-end-radius(0);
+    }
+  }
+
+  &.has-validation {
+    > :nth-last-child(n + 3):not(.dropdown-toggle):not(.dropdown-menu),
+    > .dropdown-toggle:nth-last-child(n + 4) {
+      @include border-end-radius(0);
+    }
+  }
+
+  $validation-messages: "";
+  @each $state in map-keys($form-validation-states) {
+    $validation-messages: $validation-messages + ":not(." + unquote($state) + "-tooltip)" + ":not(." + unquote($state) + "-feedback)";
+  }
+
+  > :not(:first-child):not(.dropdown-menu)#{$validation-messages} {
+    //margin-left: -$input-border-width;
+    @include border-start-radius(0);
+  }
+}
+
+
+// Form control sizing
+//
+// Build on `.form-control` with modifier classes to decrease or increase the
+// height and font-size of form controls.
+//
+// Repeated in `_input_group.scss` to avoid Sass extend issues.
+
+//.form-control-sm {
+//  min-height: $input-height-sm;
+//  padding: $input-padding-y-sm $input-padding-x-sm;
+//  @include font-size($input-font-size-sm);
+//  @include border-radius($input-border-radius-sm);
+//
+//  &::file-selector-button {
+//    padding: $input-padding-y-sm $input-padding-x-sm;
+//    margin: (-$input-padding-y-sm) (-$input-padding-x-sm);
+//    margin-inline-end: $input-padding-x-sm;
+//  }
+//
+//  &::-webkit-file-upload-button {
+//    padding: $input-padding-y-sm $input-padding-x-sm;
+//    margin: (-$input-padding-y-sm) (-$input-padding-x-sm);
+//    margin-inline-end: $input-padding-x-sm;
+//  }
+//}
+//
+//.form-control-lg {
+//  min-height: $input-height-lg;
+//  padding: $input-padding-y-lg $input-padding-x-lg;
+//  @include font-size($input-font-size-lg);
+//  @include border-radius($input-border-radius-lg);
+//
+//  &::file-selector-button {
+//    padding: $input-padding-y-lg $input-padding-x-lg;
+//    margin: (-$input-padding-y-lg) (-$input-padding-x-lg);
+//    margin-inline-end: $input-padding-x-lg;
+//  }
+//
+//  &::-webkit-file-upload-button {
+//    padding: $input-padding-y-lg $input-padding-x-lg;
+//    margin: (-$input-padding-y-lg) (-$input-padding-x-lg);
+//    margin-inline-end: $input-padding-x-lg;
+//  }
+//}
+//
+//.input-wrapper-sm {
+//  @extend .form-control-sm;
+//}
+//
+//.input-wrapper-lg {
+//  @extend .form-control-lg;
+//}

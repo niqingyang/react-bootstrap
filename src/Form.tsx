@@ -12,6 +12,7 @@ import FormText from './FormText';
 import Switch from './Switch';
 import FloatingLabel from './FloatingLabel';
 import { BsPrefixRefForwardingComponent, AsProp } from './helpers';
+import FormInput from './FormInput';
 
 export interface FormProps
   extends React.FormHTMLAttributes<HTMLFormElement>,
@@ -72,4 +73,5 @@ export default Object.assign(Form, {
   Range: FormRange,
   Select: FormSelect,
   FloatingLabel,
+  Input: FormInput
 });
