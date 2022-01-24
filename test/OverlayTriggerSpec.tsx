@@ -7,7 +7,7 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import OverlayTrigger from '../src/OverlayTrigger';
 import Popover from '../src/Popover';
-import Tooltip from '../src/Tooltip';
+import BaseTooltip from '../src/BaseTooltip';
 
 describe('<OverlayTrigger>', () => {
   // Swallow extra props.
@@ -342,7 +342,7 @@ describe('<OverlayTrigger>', () => {
         overlay: <Popover id="test-popover">test</Popover>,
       },
       {
-        name: 'Tooltip',
+        name: 'BaseTooltip',
         overlay: <BaseTooltip id="test-tooltip">test</BaseTooltip>,
       },
     ].forEach((testCase) => {

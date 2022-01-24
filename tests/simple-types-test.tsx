@@ -33,7 +33,6 @@ import {
   NavDropdown,
   Overlay,
   OverlayTrigger,
-  Tooltip,
   BaseTooltip,
   Pagination,
   Popover,
