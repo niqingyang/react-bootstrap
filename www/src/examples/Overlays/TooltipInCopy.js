@@ -1,7 +1,7 @@
 const Link = ({ id, children, title }) => (
-  <OverlayTrigger overlay={<Tooltip id={id}>{title}</Tooltip>}>
+  <Tooltip id={id} title={title}>
     <a href="#">{children}</a>
-  </OverlayTrigger>
+  </Tooltip>
 );
 
 render(

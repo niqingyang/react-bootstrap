@@ -1,6 +1,6 @@
 import styled from 'astroturf';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import BaseTooltip from 'react-bootstrap/BaseTooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode } from '@fortawesome/free-solid-svg-icons/faCode';
 
@@ -18,9 +18,9 @@ export default (props) => {
   return (
     <OverlayTrigger
       overlay={
-        <Tooltip id={`view-${component}-source-tooltip`}>
+        <BaseTooltip id={`view-${component}-source-tooltip`}>
           View source file
-        </Tooltip>
+        </BaseTooltip>
       }
     >
       <Link href={linkToComponentOnGitHub} className="js-search-exclude">

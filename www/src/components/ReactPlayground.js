@@ -12,7 +12,7 @@ import {
   useState,
 } from 'react';
 import * as ReactBootstrap from 'react-bootstrap';
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, OverlayTrigger, BaseTooltip } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 import {
   LiveContext,
@@ -201,9 +201,9 @@ const CopyTooltip = forwardRef(
     }, [children, popper]);
 
     return (
-      <Tooltip ref={ref} {...props}>
+      <BaseTooltip ref={ref} {...props}>
         {children}
-      </Tooltip>
+      </BaseTooltip>
     );
   },
 );

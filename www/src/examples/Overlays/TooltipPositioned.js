@@ -1,15 +1,14 @@
 <>
   {['top', 'right', 'bottom', 'left'].map((placement) => (
-    <OverlayTrigger
+    <Tooltip
       key={placement}
+      id={`tooltip-${placement}`}
       placement={placement}
-      overlay={
-        <Tooltip id={`tooltip-${placement}`}>
-          Tooltip on <strong>{placement}</strong>.
-        </Tooltip>
+      title={
+        <>Tooltip on <strong>{placement}</strong>.</>
       }
     >
-      <Button variant="secondary">Tooltip on {placement}</Button>
-    </OverlayTrigger>
+      <Button variant='secondary' style={{marginRight: "4px"}}>Tooltip on {placement}</Button>
+    </Tooltip>
   ))}
 </>;

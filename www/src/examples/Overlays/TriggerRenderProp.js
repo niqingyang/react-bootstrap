@@ -1,7 +1,7 @@
 render(
   <OverlayTrigger
     placement="bottom"
-    overlay={<Tooltip id="button-tooltip-2">Check out this avatar</Tooltip>}
+    overlay={<BaseTooltip id="button-tooltip-2">Check out this avatar</BaseTooltip>}
   >
     {({ ref, ...triggerHandler }) => (
       <Button

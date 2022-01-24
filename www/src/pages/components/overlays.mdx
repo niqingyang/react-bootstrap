@@ -155,15 +155,21 @@ component can use to reposition itself.
 
 ## API
 
+props of `<Tooltip>` extends props of `<BaseTooltip>` and `<OverlayTrigger>`
+
 <ComponentApi metadata={props.data.Overlay} />
 <ComponentApi metadata={props.data.OverlayTrigger} />
 <ComponentApi metadata={props.data.Tooltip} />
+<ComponentApi metadata={props.data.BaseTooltip} />
 <ComponentApi metadata={props.data.Popover} />
 <ComponentApi metadata={props.data.PopoverBody} />
 <ComponentApi metadata={props.data.PopoverHeader} />
 
 export const query = graphql`
   query OverlayQuery {
+    BaseTooltip: componentMetadata(displayName: { eq: "BaseTooltip" }) {
+      ...ComponentApi_metadata
+    }
     Tooltip: componentMetadata(displayName: { eq: "Tooltip" }) {
       ...ComponentApi_metadata
     }

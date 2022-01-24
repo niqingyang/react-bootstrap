@@ -1,118 +1,73 @@
-import classNames from 'classnames';
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { OverlayArrowProps } from '@restart/ui/Overlay';
-import { useBootstrapPrefix, useIsRTL } from './ThemeProvider';
-import { Placement } from './types';
-import { BsPrefixProps, getOverlayDirection } from './helpers';
+import BaseTooltip, { BaseTooltipProps } from './BaseTooltip';
+import OverlayTrigger, {
+  OverlayTriggerProps,
+  OverlayTriggerRenderProps,
+} from './OverlayTrigger';
 
-export interface TooltipProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    BsPrefixProps {
-  placement?: Placement;
-  arrowProps?: Partial<OverlayArrowProps>;
-  show?: boolean;
-  popper?: any;
+export interface TooltipProps extends BaseTooltipProps, OverlayTriggerProps {
+  title: any
+  children: React.ReactElement | ((props: OverlayTriggerRenderProps) => React.ReactNode)
 }
 
 const propTypes = {
-  /**
-   * @default 'tooltip'
-   */
-  bsPrefix: PropTypes.string,
 
   /**
-   * An html id attribute, necessary for accessibility
-   * @type {string}
-   * @required
+   * Tooltip content
    */
-  id: PropTypes.string,
+  title: PropTypes.any,
 
   /**
-   * Sets the direction the Tooltip is positioned towards.
-   *
-   * > This is generally provided by the `Overlay` component positioning the tooltip
+   * extends OverlayTrigger.propTypes
    */
-  placement: PropTypes.oneOf([
-    'auto-start',
-    'auto',
-    'auto-end',
-    'top-start',
-    'top',
-    'top-end',
-    'right-start',
-    'right',
-    'right-end',
-    'bottom-end',
-    'bottom',
-    'bottom-start',
-    'left-end',
-    'left',
-    'left-start',
-  ]),
+  ...BaseTooltip.propTypes,
 
   /**
-   * An Overlay injected set of props for positioning the tooltip arrow.
-   *
-   * > This is generally provided by the `Overlay` component positioning the tooltip
-   *
-   * @type {{ ref: ReactRef, style: Object }}
+   * extends OverlayTrigger.propTypes
    */
-  arrowProps: PropTypes.shape({
-    ref: PropTypes.any,
-    style: PropTypes.object,
-  }),
-
-  /** @private */
-  popper: PropTypes.object,
-
-  /** @private */
-  show: PropTypes.any,
-};
-
-const defaultProps = {
-  placement: 'right',
+  ...OverlayTrigger.propTypes
 };
 
 const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
   (
     {
-      bsPrefix,
-      placement,
-      className,
-      style,
+      title,
       children,
-      arrowProps,
       popper: _,
-      show: _2,
+
+      trigger,
+      delay,
+      show,
+      defaultShow,
+      onToggle,
+      flip,
+
       ...props
     }: TooltipProps,
     ref,
   ) => {
-    bsPrefix = useBootstrapPrefix(bsPrefix, 'tooltip');
-    const isRTL = useIsRTL();
 
-    const [primaryPlacement] = placement?.split('-') || [];
-    const bsDirection = getOverlayDirection(primaryPlacement, isRTL);
+    const overlay = (
+      <BaseTooltip ref={ref} {...props}>
+        {title}
+      </BaseTooltip>
+    );
 
     return (
-      <div
-        ref={ref}
-        style={style}
-        role="tooltip"
-        x-placement={primaryPlacement}
-        className={classNames(className, bsPrefix, `bs-tooltip-${bsDirection}`)}
-        {...props}
+      <OverlayTrigger
+        placement={props.placement}
+        overlay={overlay}
+        {...{ trigger, delay, show, defaultShow, onToggle, flip }}
       >
-        <div className="tooltip-arrow" {...arrowProps} />
-        <div className={`${bsPrefix}-inner`}>{children}</div>
-      </div>
+        {React.Children.count(children) > 1 ? (<span>{children}</span>) : children}
+      </OverlayTrigger>
     );
   },
 );
 
 Tooltip.propTypes = propTypes as any;
-Tooltip.defaultProps = defaultProps as any;
+Tooltip.defaultProps = BaseTooltip.defaultProps as any;
 Tooltip.displayName = 'Tooltip';
 
 export default Tooltip;

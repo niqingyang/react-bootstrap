@@ -37,16 +37,16 @@ class Example extends React.Component {
         </Button>
 
         <Overlay {...sharedProps} placement="left">
-          <Tooltip id="overload-left">Tooltip overload!</Tooltip>
+          <BaseTooltip id="overload-left">Tooltip overload!</BaseTooltip>
         </Overlay>
         <Overlay {...sharedProps} placement="top">
-          <Tooltip id="overload-top">Tooltip overload!</Tooltip>
+          <BaseTooltip id="overload-top">Tooltip overload!</BaseTooltip>
         </Overlay>
         <Overlay {...sharedProps} placement="right">
-          <Tooltip id="overload-right">Tooltip overload!</Tooltip>
+          <BaseTooltip id="overload-right">Tooltip overload!</BaseTooltip>
         </Overlay>
         <Overlay {...sharedProps} placement="bottom">
-          <Tooltip id="overload-bottom">Tooltip overload!</Tooltip>
+          <BaseTooltip id="overload-bottom">Tooltip overload!</BaseTooltip>
         </Overlay>
       </div>
     );

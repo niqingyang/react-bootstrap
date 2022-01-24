@@ -5,7 +5,7 @@ import { render } from '@testing-library/react';
 import { expect } from 'chai';
 
 import Popover from '../src/Popover';
-import Tooltip from '../src/Tooltip';
+import BaseTooltip from '../src/BaseTooltip';
 import useOverlayOffset from '../src/useOverlayOffset';
 
 describe('useOverlayOffset', () => {
@@ -41,7 +41,7 @@ describe('useOverlayOffset', () => {
 
     mount(
       <Wrapper ref={ref}>
-        <Tooltip id="test-tooltip" />
+        <BaseTooltip id="test-tooltip" />
       </Wrapper>,
     );
 

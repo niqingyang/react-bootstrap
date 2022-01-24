@@ -4,7 +4,7 @@ import styled from 'astroturf';
 import copy from 'copy-text-to-clipboard';
 import { useState, forwardRef, useEffect } from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import BaseTooltip from 'react-bootstrap/BaseTooltip';
 import useEventCallback from '@restart/hooks/useEventCallback';
 
 const Link = styled('span')`
@@ -35,9 +35,9 @@ const CopyTooltip = forwardRef(
     }, [children, popper]);
 
     return (
-      <Tooltip ref={ref} {...props}>
+      <BaseTooltip ref={ref} {...props}>
         {children}
-      </Tooltip>
+      </BaseTooltip>
     );
   },
 );

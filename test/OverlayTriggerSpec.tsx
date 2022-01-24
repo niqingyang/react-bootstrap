@@ -343,7 +343,7 @@ describe('<OverlayTrigger>', () => {
       },
       {
         name: 'Tooltip',
-        overlay: <Tooltip id="test-tooltip">test</Tooltip>,
+        overlay: <BaseTooltip id="test-tooltip">test</BaseTooltip>,
       },
     ].forEach((testCase) => {
       describe(testCase.name, () => {

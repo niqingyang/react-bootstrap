@@ -1,12 +1,12 @@
 import { render } from '@testing-library/react';
-import Tooltip from '../src/Tooltip';
+import BaseTooltip from '../src/BaseTooltip';
 
 describe('Tooltip', () => {
   it('Should output a tooltip with content', () => {
     const { getByTestId } = render(
-      <Tooltip data-testid="test-tooltip" placement="right">
+      <BaseTooltip data-testid="test-tooltip" placement="right">
         <strong>Tooltip Content</strong>
-      </Tooltip>,
+      </BaseTooltip>,
     );
 
     getByTestId('test-tooltip').classList.should.contains([

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import Tooltip from 'react-bootstrap/Tooltip';
+import BaseTooltip from 'react-bootstrap/BaseTooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Dropdown from 'react-bootstrap/Dropdown';
 import styled from 'astroturf';
@@ -150,7 +150,7 @@ function NavMain({ activePage }) {
             <OverlayTrigger
               placement="bottom"
               delay={{ show: 200 }}
-              overlay={<Tooltip id="t-github">Github</Tooltip>}
+              overlay={<BaseTooltip id="t-github">Github</BaseTooltip>}
             >
               <StyledNavLink
                 href="https://github.com/react-bootstrap/react-bootstrap"
@@ -164,7 +164,7 @@ function NavMain({ activePage }) {
             <OverlayTrigger
               placement="bottom"
               delay={{ show: 200 }}
-              overlay={<Tooltip id="t-discord">Discord</Tooltip>}
+              overlay={<BaseTooltip id="t-discord">Discord</BaseTooltip>}
             >
               <StyledNavLink
                 href="https://discord.gg/AKfs9vpvRW"

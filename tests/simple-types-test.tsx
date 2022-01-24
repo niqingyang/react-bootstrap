@@ -34,6 +34,7 @@ import {
   Overlay,
   OverlayTrigger,
   Tooltip,
+  BaseTooltip,
   Pagination,
   Popover,
   ProgressBar,
@@ -785,9 +786,9 @@ const MegaComponent = () => (
       transition
     >
       {(props) => (
-        <Tooltip id="overlay-example" {...props}>
+        <BaseTooltip id="overlay-example" {...props}>
           My Tooltip
-        </Tooltip>
+        </BaseTooltip>
       )}
     </Overlay>
     <OverlayTrigger
@@ -799,9 +800,9 @@ const MegaComponent = () => (
       placement="left"
       trigger="hover"
       overlay={
-        <Tooltip id="tooltip-left" style={style}>
+        <BaseTooltip id="tooltip-left" style={style}>
           Tooltip on <strong>left</strong>.
-        </Tooltip>
+        </BaseTooltip>
       }
     >
       <Button variant="secondary">Tooltip on left</Button>
