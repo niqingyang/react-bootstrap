@@ -1,10 +1,10 @@
 const popover = (triggerBehavior) => (
-  <Popover id={`popover-trigger-${triggerBehavior}`}>
-    <Popover.Header as="h3">Popover bottom</Popover.Header>
-    <Popover.Body>
+  <BasePopover id={`popover-trigger-${triggerBehavior}`}>
+    <BasePopover.Header as="h3">Popover bottom</BasePopover.Header>
+    <BasePopover.Body>
       <strong>Holy guacamole!</strong> Check this info.
-    </Popover.Body>
-  </Popover>
+    </BasePopover.Body>
+  </BasePopover>
 );
 
 const popoverClick = <popover triggerBehavior="click" />;

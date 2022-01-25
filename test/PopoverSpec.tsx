@@ -1,16 +1,16 @@
 import { render } from '@testing-library/react';
 
-import Popover from '../src/Popover';
+import BasePopover from '../src/BasePopover';
 
 describe('Popover', () => {
   it('Should output a popover title and content', () => {
     const { getByTestId } = render(
-      <Popover data-testid="test" id="test-popover">
-        <Popover.Header>Popover title</Popover.Header>
-        <Popover.Body>
+      <BasePopover data-testid="test" id="test-popover">
+        <BasePopover.Header>Popover title</BasePopover.Header>
+        <BasePopover.Body>
           <strong>Popover Content</strong>
-        </Popover.Body>
-      </Popover>,
+        </BasePopover.Body>
+      </BasePopover>,
     );
     const popoverElem = getByTestId('test');
     const popoverArrowElem = popoverElem.children[0]!;

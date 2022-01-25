@@ -1,11 +1,11 @@
 const popover = (
-  <Popover id="popover-basic">
-    <Popover.Header as="h3">Popover right</Popover.Header>
-    <Popover.Body>
+  <BasePopover id="popover-basic">
+    <BasePopover.Header as="h3">Popover right</BasePopover.Header>
+    <BasePopover.Body>
       And here's some <strong>amazing</strong> content. It's very engaging.
       right?
-    </Popover.Body>
-  </Popover>
+    </BasePopover.Body>
+  </BasePopover>
 );
 
 const Example = () => (

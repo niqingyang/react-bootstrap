@@ -6,7 +6,7 @@ import { fireEvent, render } from '@testing-library/react';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import OverlayTrigger from '../src/OverlayTrigger';
-import Popover from '../src/Popover';
+import BasePopover from '../src/BasePopover';
 import BaseTooltip from '../src/BaseTooltip';
 
 describe('<OverlayTrigger>', () => {
@@ -339,7 +339,7 @@ describe('<OverlayTrigger>', () => {
     [
       {
         name: 'Popover',
-        overlay: <Popover id="test-popover">test</Popover>,
+        overlay: <BasePopover id="test-popover">test</BasePopover>,
       },
       {
         name: 'BaseTooltip',

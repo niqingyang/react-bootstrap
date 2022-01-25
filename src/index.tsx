@@ -161,6 +161,9 @@ export type { PlaceholderButtonProps } from './PlaceholderButton';
 export { default as Popover } from './Popover';
 export type { PopoverProps } from './Popover';
 
+export { default as BasePopover } from './BasePopover';
+export type { BasePopoverProps } from './BasePopover';
+
 export { default as PopoverHeader } from './PopoverHeader';
 export { default as PopoverBody } from './PopoverBody';
 export { default as ProgressBar } from './ProgressBar';

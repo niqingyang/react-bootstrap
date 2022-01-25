@@ -35,7 +35,7 @@ import {
   OverlayTrigger,
   BaseTooltip,
   Pagination,
-  Popover,
+  BasePopover,
   ProgressBar,
   Spinner,
   SplitButton,
@@ -868,7 +868,7 @@ const MegaComponent = () => (
       <Pagination.Next />
       <Pagination.Last />
     </Pagination>
-    <Popover
+    <BasePopover
       id="test-popover"
       body
       placement="auto"
@@ -877,13 +877,13 @@ const MegaComponent = () => (
       bsPrefix="popover"
       style={style}
     >
-      <Popover.Header as="div" bsPrefix="prefix" style={style}>
+      <BasePopover.Header as="div" bsPrefix="prefix" style={style}>
         Popover title
-      </Popover.Header>
-      <Popover.Body as="div" bsPrefix="prefix" style={style}>
+      </BasePopover.Header>
+      <BasePopover.Body as="div" bsPrefix="prefix" style={style}>
         <strong>Popover Content</strong>
-      </Popover.Body>
-    </Popover>
+      </BasePopover.Body>
+    </BasePopover>
     <div>
       <ProgressBar striped variant="success" min={-10} now={40} max={200} />
       <ProgressBar striped animated variant="info" now={20} />

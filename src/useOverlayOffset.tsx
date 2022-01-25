@@ -2,7 +2,7 @@ import { useMemo, useRef } from 'react';
 import hasClass from 'dom-helpers/hasClass';
 import { Options } from '@restart/ui/usePopper';
 import { useBootstrapPrefix } from './ThemeProvider';
-import Popover from './Popover';
+import BasePopover from './BasePopover';
 
 // This is meant for internal use.
 // This applies a custom offset to the overlay if it's a popover.
@@ -22,7 +22,7 @@ export default function useOverlayOffset(): [
             overlayRef.current &&
             hasClass(overlayRef.current, popoverClass)
           ) {
-            return Popover.POPPER_OFFSET;
+            return BasePopover.POPPER_OFFSET;
           }
           return [0, 0];
         },

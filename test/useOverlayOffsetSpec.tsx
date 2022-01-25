@@ -4,7 +4,7 @@ import { mount } from 'enzyme';
 import { render } from '@testing-library/react';
 import { expect } from 'chai';
 
-import Popover from '../src/Popover';
+import BasePopover from '../src/BasePopover';
 import BaseTooltip from '../src/BaseTooltip';
 import useOverlayOffset from '../src/useOverlayOffset';
 
@@ -28,7 +28,7 @@ describe('useOverlayOffset', () => {
 
     render(
       <Wrapper ref={ref}>
-        <Popover id="test-popover" />
+        <BasePopover id="test-popover" />
       </Wrapper>,
     );
 

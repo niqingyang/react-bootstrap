@@ -143,7 +143,7 @@ const propTypes = {
 
 const defaultProps: Partial<OverlayProps> = {
   transition: Fade,
-  rootClose: false,
+  rootClose: true,
   show: false,
   placement: 'top',
 };

@@ -1,7 +1,7 @@
 import contains from 'dom-helpers/contains';
 import PropTypes from 'prop-types';
 import * as React from 'react';
-import { cloneElement, useCallback, useRef } from 'react';
+import { cloneElement, useCallback, useEffect, useRef, useState } from 'react';
 import useTimeout from '@restart/hooks/useTimeout';
 import warning from 'warning';
 import { useUncontrolledProp } from 'uncontrollable';
@@ -34,17 +34,22 @@ export interface OverlayTriggerProps
   flip?: boolean;
   overlay: OverlayChildren;
 
+  /**
+   * 是否在点击空白处（触发节点和弹出框以外的区域）时关闭弹出层
+   */
+  rootClose?: boolean
+
   target?: never;
   onHide?: never;
 }
 
-function normalizeDelay(delay?: OverlayDelay): {show: number, hide: number} {
+function normalizeDelay(delay?: OverlayDelay): { show: number, hide: number } {
   return delay && typeof delay === 'object'
     ? delay
     : {
-        show: delay as number,
-        hide: delay as number,
-      };
+      show: delay as number,
+      hide: delay as number,
+    };
 }
 
 // Simple implementation of mouseEnter and mouseLeave.
@@ -115,7 +120,7 @@ const propTypes = {
   onToggle: PropTypes.func,
 
   /**
-    The initial flip state of the Overlay.
+   The initial flip state of the Overlay.
    */
   flip: PropTypes.bool,
 
@@ -180,6 +185,7 @@ function OverlayTrigger({
   delay: propsDelay,
   placement,
   flip = placement && placement.indexOf('auto') !== -1,
+
   ...props
 }: OverlayTriggerProps) {
   const triggerNodeRef = useRef(null);
@@ -269,6 +275,7 @@ function OverlayTrigger({
     [handleHide],
   );
 
+
   const triggers: string[] = trigger == null ? [] : [].concat(trigger as any);
   const triggerProps: any = {
     ref: attachRef,
@@ -297,17 +304,17 @@ function OverlayTrigger({
       {typeof children === 'function'
         ? children(triggerProps)
         : cloneElement(children, triggerProps)}
-      <Overlay
-        {...props}
-        show={show}
-        onHide={handleHide}
-        flip={flip}
-        placement={placement}
-        popperConfig={popperConfig}
-        target={triggerNodeRef.current}
-      >
-        {overlay}
-      </Overlay>
+        <Overlay
+          {...props}
+          show={show}
+          onHide={handleHide}
+          flip={flip}
+          placement={placement}
+          popperConfig={popperConfig}
+          target={triggerNodeRef.current}
+        >
+          {overlay}
+        </Overlay>
     </>
   );
 }

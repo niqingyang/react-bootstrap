@@ -19,12 +19,12 @@ function Example() {
         container={ref}
         containerPadding={20}
       >
-        <Popover id="popover-contained">
-          <Popover.Header as="h3">Popover bottom</Popover.Header>
-          <Popover.Body>
+        <BasePopover id="popover-contained">
+          <BasePopover.Header as="h3">Popover bottom</BasePopover.Header>
+          <BasePopover.Body>
             <strong>Holy guacamole!</strong> Check this info.
-          </Popover.Body>
-        </Popover>
+          </BasePopover.Body>
+        </BasePopover>
       </Overlay>
     </div>
   );

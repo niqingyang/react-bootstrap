@@ -8,7 +8,7 @@ import PopoverBody from './PopoverBody';
 import { Placement } from './types';
 import { BsPrefixProps, getOverlayDirection } from './helpers';
 
-export interface PopoverProps
+export interface BasePopoverProps
   extends React.HTMLAttributes<HTMLDivElement>,
     BsPrefixProps {
   placement?: Placement;
@@ -78,11 +78,11 @@ const propTypes = {
   show: PropTypes.bool,
 };
 
-const defaultProps: Partial<PopoverProps> = {
+const defaultProps: Partial<BasePopoverProps> = {
   placement: 'right',
 };
 
-const BasePopover = React.forwardRef<HTMLDivElement, PopoverProps>(
+const BasePopover = React.forwardRef<HTMLDivElement, BasePopoverProps>(
   (
     {
       bsPrefix,
@@ -106,7 +106,7 @@ const BasePopover = React.forwardRef<HTMLDivElement, PopoverProps>(
     return (
       <div
         ref={ref}
-        role="tooltip"
+        role='tooltip'
         style={style}
         x-placement={primaryPlacement}
         className={classNames(
@@ -116,7 +116,7 @@ const BasePopover = React.forwardRef<HTMLDivElement, PopoverProps>(
         )}
         {...props}
       >
-        <div className="popover-arrow" {...arrowProps} />
+        <div className='popover-arrow' {...arrowProps} />
         {body ? <PopoverBody>{children}</PopoverBody> : children}
       </div>
     );

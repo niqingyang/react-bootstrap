@@ -6,9 +6,9 @@ const UpdatingPopover = React.forwardRef(
     }, [children, popper]);
 
     return (
-      <Popover ref={ref} body {...props}>
+      <BasePopover ref={ref} body {...props}>
         {children}
-      </Popover>
+      </BasePopover>
     );
   },
 );
