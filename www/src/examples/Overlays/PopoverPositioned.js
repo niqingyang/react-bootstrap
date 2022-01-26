@@ -1,5 +1,5 @@
 <>
-  <Stack direction={"horizontal"} gap={3}>
+  <Stack>
     {['top', 'right', 'bottom', 'left'].map((placement) => (
       <Popover
         trigger='click'

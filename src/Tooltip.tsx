@@ -6,8 +6,8 @@ import OverlayTrigger, {
   OverlayTriggerRenderProps,
 } from './OverlayTrigger';
 
-export interface TooltipProps extends BaseTooltipProps, OverlayTriggerProps {
-  title: any
+export interface TooltipProps extends Omit<BaseTooltipProps, "title">, OverlayTriggerProps {
+  title: React.ReactNode
   children: React.ReactElement | ((props: OverlayTriggerRenderProps) => React.ReactNode)
 }
 

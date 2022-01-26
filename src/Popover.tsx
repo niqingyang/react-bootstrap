@@ -8,8 +8,8 @@ import OverlayTrigger, {
   OverlayTriggerRenderProps,
 } from './OverlayTrigger';
 
-export interface PopoverProps extends BasePopoverProps, OverlayTriggerProps {
-  title?: any;
+export interface PopoverProps extends Omit<BasePopoverProps, "title">, OverlayTriggerProps {
+  title?: React.ReactNode;
   content?: React.ReactNode;
   children: React.ReactElement | ((props: OverlayTriggerRenderProps) => React.ReactNode);
 }

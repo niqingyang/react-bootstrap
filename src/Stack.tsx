@@ -36,6 +36,11 @@ const propTypes = {
   gap: responsivePropType(PropTypes.number),
 };
 
+const defaultProps: StackProps = {
+  direction: 'horizontal',
+  gap: 2,
+};
+
 const Stack: BsPrefixRefForwardingComponent<'span', StackProps> =
   React.forwardRef<HTMLElement, StackProps>(
     (
@@ -65,5 +70,6 @@ const Stack: BsPrefixRefForwardingComponent<'span', StackProps> =
 
 Stack.displayName = 'Stack';
 Stack.propTypes = propTypes;
+Stack.defaultProps = defaultProps;
 
 export default Stack;
